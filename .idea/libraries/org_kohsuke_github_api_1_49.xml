@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="org.kohsuke:github-api:1.49" type="repository">
+    <properties maven-id="org.kohsuke:github-api:1.49" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/github-api-1.49.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang-2.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-databind-2.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-io-1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/github-api-1.49-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
