@@ -14,6 +14,7 @@ import com.intellij.notification.NotificationListener;
 import com.intellij.notification.NotificationType;
 import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
@@ -23,6 +24,10 @@ import com.intellij.openapi.projectRoots.ProjectJdkTable;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkTypeId;
 import com.intellij.openapi.startup.StartupActivity;
+import com.intellij.openapi.ui.DialogWrapper;
+import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.ui.popup.Balloon;
+import com.intellij.openapi.ui.popup.BalloonBuilder;
 import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.util.io.FileUtilRt;
@@ -159,14 +164,28 @@ public class HotswapAgentIntegration implements StartupActivity
 
         if ( ( ! new File( jre ).exists() ) || ( ! currentRelease.equals( newRelease ) ) )
         {
-            downloadWithAsk(project, new Runnable()
+            if ( "".equals( currentRelease ) )
             {
-                @Override
-                public void run()
+                installWithAsk(project, new Runnable()
                 {
-                    download( project, newRelease, jre );
-                }
-            });
+                    @Override
+                    public void run()
+                    {
+                        download(project, newRelease, jre);
+                    }
+                });
+            }
+            else
+            {
+                downloadWithAsk(project, new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        download(project, newRelease, jre);
+                    }
+                });
+            }
         }
         else
         {
@@ -196,14 +215,28 @@ public class HotswapAgentIntegration implements StartupActivity
         });
     }
 
-
     /**
      * Zobrazení žádosti o povolení stáhnout novou verzi
-     * *
+     *
      * @param project  aktuální projekt
      * @param callback funkce, která se provede po potrvzení
      */
-    public void downloadWithAsk(@NotNull Project project, @NotNull final Runnable callback)
+    public void installWithAsk( @NotNull Project project, @NotNull final Runnable callback )
+    {
+        if ( Messages.showYesNoDialog( project, "Hotswap Agent", "Do You Want to Download the New Version ?", Messages.getQuestionIcon() ) == Messages.YES )
+        {
+            callback.run() ;
+        }
+    }
+
+
+    /**
+     * Zobrazení žádosti o povolení stáhnout novou verzi
+     *
+     * @param project  aktuální projekt
+     * @param callback funkce, která se provede po potrvzení
+     */
+    public void downloadWithAsk( @NotNull Project project, @NotNull final Runnable callback)
     {
         Notification notification = new Notification(
                 getPluginDescriptor().getName(),

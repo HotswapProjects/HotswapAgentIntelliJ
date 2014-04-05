@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>cz.datalite.plugins.idea.hotswap</id>
   <name>Hotswap Agent IntelliJ Idea Plugin</name>
-  <version>1.0</version>
+  <version>1.1</version>
 
     <description><![CDATA[
       Provides integration with <a href="https://github.com/HotswapProjects/HotswapAgent">Hotswap</a> and <a href="http://ssw.jku.at/dcevm/">DCEVM</a><br/>
@@ -9,13 +9,14 @@
       ]]></description>
 
   <change-notes><![CDATA[
+          1.0   Initial version<br/>
+          1.1   Adding a dialog box appears to confirm the first download
     ]]>
   </change-notes>
 
   <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
   <idea-version since-build="131"/>
 
-  <depends>DevKit</depends>
   <depends>org.jetbrains.idea.maven</depends>
 
   <extensions defaultExtensionNs="com.intellij">
